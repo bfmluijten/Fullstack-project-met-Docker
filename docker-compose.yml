@@ -2,7 +2,7 @@ services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      SA_PASSWORD: "{{Jouw wachtwoord}}"
+      SA_PASSWORD: "C0mplexW@chtw00rd"
       ACCEPT_EULA: "Y"
     healthcheck:
       test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/1433"]
@@ -21,7 +21,7 @@ services:
         condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__{{JouwConnectieNaam}}=Server=db;Database={{Jouwdatabasenaam}};User=sa;Password={{Jouw wachtwoord}};TrustServerCertificate=True;Encrypt=True
+      - ConnectionStrings__Hospital=Server=db;Database=Hospital;User=sa;Password=C0mplexW@chtw00rd;TrustServerCertificate=True;Encrypt=True
     # Do not publish backend directly; proxy will route /api to this service
   carsclient:
     build:
