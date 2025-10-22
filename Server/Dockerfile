@@ -4,13 +4,15 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["Server.csproj", "WebApp/"]
-RUN dotnet restore "WebApp/Server.csproj"
+
 COPY . .
-WORKDIR "/src/WebApp"
-# RUN dotnet publish "Server.csproj" -c Release -o /app/publish
+RUN dotnet restore "./Server.csproj"
+
+# Run publish (do not skip restore so assets are resolved during publish)
+RUN dotnet publish "./Server.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-# COPY --from=build /app/publish .
+# Copy published files from build stage
+COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "Server.dll"]
