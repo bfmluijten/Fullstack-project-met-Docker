@@ -4,6 +4,8 @@ services:
     environment:
       SA_PASSWORD: "C0mplexW@chtw00rd"
       ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
     healthcheck:
       test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/1433"]
       interval: 10s
