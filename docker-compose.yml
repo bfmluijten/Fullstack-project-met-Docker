@@ -23,7 +23,7 @@ services:
         condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__Hospital=Server=db;Database=Hospital;User=sa;Password=C0mplexW@chtw00rd;TrustServerCertificate=True;Encrypt=True
+      - ConnectionStrings__Hospital=Server=localhost,1433;Database=Hospital;User=sa;Password=C0mplexW@chtw00rd;TrustServerCertificate=True;Encrypt=True
     # Do not publish backend directly; proxy will route /api to this service
   carsclient:
     build:

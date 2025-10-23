@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Server.Database;
+
 namespace Server
 {
     public class Program
@@ -24,18 +27,19 @@ namespace Server
             // Prefer environment variable for connection string if present
             var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__{{JouwConnectieNaam}}")
                 ?? builder.Configuration.GetConnectionString("{{JouwConnectieNaam}}");
+            connectionString = "Server=localhost,1433;Database=Hospital;User=sa;Password=C0mplexW@chtw00rd;TrustServerCertificate=True;Encrypt=True";
             Console.WriteLine($"Using connection string: {connectionString}");
 
-            // builder.Services.AddDbContext<MyCarsDbContext>(options =>
-              // options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<HospitalDbContext>(options =>
+              options.UseSqlServer(connectionString));
 
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())
             {
                 // Bij het opstarten zal hij de database migraties uitvoeren.
-                // var db = scope.ServiceProvider.GetRequiredService<MyCarsDbContext>();
-                // db.Database.Migrate();
+                var db = scope.ServiceProvider.GetRequiredService<HospitalDbContext>();
+                db.Database.Migrate();
             }
 
             // Configure the HTTP request pipeline.
