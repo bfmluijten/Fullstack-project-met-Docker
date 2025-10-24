@@ -27,7 +27,7 @@ namespace Server
             // Prefer environment variable for connection string if present
             var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__{{JouwConnectieNaam}}")
                 ?? builder.Configuration.GetConnectionString("{{JouwConnectieNaam}}");
-            connectionString = "Server=localhost,1433;Database=Hospital;User=sa;Password=C0mplexW@chtw00rd;TrustServerCertificate=True;Encrypt=True";
+            connectionString = "Server=host.docker.internal,1433;Database=Hospital;User=sa;Password=C0mplexW@chtw00rd;TrustServerCertificate=True;Encrypt=True";
             Console.WriteLine($"Using connection string: {connectionString}");
 
             builder.Services.AddDbContext<HospitalDbContext>(options =>
