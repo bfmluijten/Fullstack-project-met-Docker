@@ -20,8 +20,7 @@ public class HospitalDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Patient>().HasData(
-            new Patient { Id = 1, Naam = "Bart Luijten", Adres = "Achterdijk 46 C, Odijk", Geboortejaar = 1962 },
-            new Patient { Id = 2, Naam = "Els Gijsbers", Adres = "Achterdijk 46 C, Odijk", Geboortejaar = 1962 }
+            new Patient { Id = 1, Naam = "Bart Luijten", Adres = "Achterdijk 46 C, Odijk", Geboortejaar = 1962 }
         );
         modelBuilder.Entity<Patient>()
             .HasIndex(c => new { c.Naam, c.Geboortejaar })
